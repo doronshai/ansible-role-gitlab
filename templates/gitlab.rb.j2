@@ -40,5 +40,12 @@ nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
 nginx['listen_https'] = "{{ gitlab_nginx_listen_https }}"
 {% endif %}
 
+
+# Gitlab unicorn 
+{% if gitlab_unicorn_port is defined %}
+unicorn['port'] = "{{ gitlab_unicorn_port }}"
+{% endif %}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
+#
