@@ -21,7 +21,7 @@ git_data_dirs({"default" => "{{ gitlab_git_data_dir }}"})
 
 # These settings are documented in more detail at
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
-gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled }}
+gitlab_rails['ldap_enabled'] = '{{ gitlab_ldap_enabled }}'
 gitlab_rails['ldap_host'] = '{{ gitlab_ldap_host }}'
 gitlab_rails['ldap_port'] = {{ gitlab_ldap_port }}
 gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
@@ -41,5 +41,12 @@ nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
 nginx['listen_https'] = "{{ gitlab_nginx_listen_https }}"
 {% endif %}
 
+
+# Gitlab unicorn 
+{% if gitlab_unicorn_port is defined %}
+unicorn['port'] = "{{ gitlab_unicorn_port }}"
+{% endif %}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
+#

@@ -32,6 +32,18 @@
   package: name={{ gitlab_edition }} state=installed
   when: (gitlab_file.stat.exists == false)
 
+# Restart is required (at least on RH) otherwise reconfigure will fail
+- name: Restart the gitlab-runsvdir
+  command: >
+    systemctl restart gitlab-runsvdir
+  when: ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Explicitly run reconfigure
+  file:
+    path: /var/opt/gitlab/bootstrapped 
+    state: absent 
+  when: explicitly_run_reconfigure == 'true'
+
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
 - name: Reconfigure GitLab (first run).
